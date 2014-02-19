@@ -4,13 +4,66 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Äventyrliga kontakter</title>
+    <link href="~/Style.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
-    </div>
+        <div id="maincontainer">
+            <h1>Äventyrliga kontakter
+            </h1>
+            <div>
+                <asp:Button ID="SendButton" runat="server" Text="Ny kontakt" />
+            </div>
+            <%-- Tabell --%>
+                <table class="infotable">
+                    <tr>
+                        <th>
+                            <asp:Label ID="HeaderLabel" runat="server" Text="Förnamn"></asp:Label>
+                        </th>
+                        <th>
+                            <asp:Label ID="LNameLabel" runat="server" Text="Efternamn"></asp:Label>
+                        </th>
+                        <th>
+                            <asp:Label ID="EmailLabel" runat="server" Text="E-post"></asp:Label>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%-- Förnamninputfält --%>
+                            <asp:TextBox ID="FNameTextBox" runat="server" MaxLength="50" Width="250"></asp:TextBox>
+                            <%-- Validering av e-post --%>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                ControlToValidate="FNameTextBox" ErrorMessage="Förnamn måste anges"
+                                Display="None"></asp:RequiredFieldValidator>
+                        </td>
+                        <td>
+                            <%-- Efternamninputfält --%>
+                            <asp:TextBox ID="LNameTextBox" runat="server" MaxLength="50" Width="250"></asp:TextBox>
+                            <%-- Validering av e-post --%>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
+                                ControlToValidate="LNameTextBox" ErrorMessage="Efternamn måste anges"
+                                Display="None"></asp:RequiredFieldValidator>
+                        </td>
+                        <td>
+                             <%-- Epostinputfält --%>
+                            <asp:TextBox ID="EmailTextBox" runat="server" MaxLength="50" Width="250"></asp:TextBox>
+                            <%-- Validering av e-post --%>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
+                                ControlToValidate="EmailTextBox" ErrorMessage="E-postadress måste anges"
+                                Display="None"></asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
+                                ControlToValidate="EmailTextBox" ValidationExpression="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
+                                ErrorMessage="E-postadressen är inte giltig" Display="None">
+                            </asp:RegularExpressionValidator>
+                        </td>
+                    </tr>
+            </table> 
+            <asp:ListView ID="ListViewWrapper" runat="server">
+                <ItemTemplate>
+                </ItemTemplate>
+            </asp:ListView>
+        </div>
     </form>
 </body>
 </html>

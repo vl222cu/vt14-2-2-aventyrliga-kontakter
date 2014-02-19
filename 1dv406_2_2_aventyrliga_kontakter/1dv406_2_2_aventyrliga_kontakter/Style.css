@@ -1,2 +1,20 @@
-﻿body {
+﻿table.infotable {
+	font-family: verdana,arial,sans-serif;
+	font-size:13px;
+	color:#FFF;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
 }
+table.infotable th {
+    width: 300px;
+	background:#999999;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #999999;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+
