@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="_1dv406_2_2_aventyrliga_kontakter.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="_1dv406_2_2_aventyrliga_kontakter.Default" ViewStateMode="Disabled"%>
 
 <!DOCTYPE html>
 
@@ -55,8 +55,9 @@
                                 <asp:Label ID="ItemEmailLabel" runat="server" Text='<%# Item.EmailAdress %>'></asp:Label>
                             </td>
                             <td>
-                                <asp:LinkButton ID="LinkButton3" runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false"></asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton4" runat="server" CommandName="Edit" Text="Redigera" CausesValidation="false"></asp:LinkButton>
+                                <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false"
+                                    OnClientClick="return confirm('Vill du verkligen ta bort kontakten från kontaktlistan?');" CssClass="selectedItem"></asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton4" runat="server" CommandName="Edit" Text="Redigera" CausesValidation="false" CssClass="selectedItem"></asp:LinkButton>
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -72,42 +73,42 @@
                     <InsertItemTemplate>
                         <tr>
                             <td>
-                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# BindItem.FirstName %>'></asp:TextBox>
+                                <asp:TextBox ID="FNameTextBox" runat="server" Text='<%# BindItem.FirstName %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="TextBox2" runat="server" Text='<%# BindItem.LastName %>'></asp:TextBox>
+                                <asp:TextBox ID="LNameTextBox" runat="server" Text='<%# BindItem.LastName %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="TextBox3" runat="server" Text='<%# BindItem.EmailAdress %>'></asp:TextBox>
+                                <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# BindItem.EmailAdress %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                             </td>
                             <td>
                                 <%-- Kommandoknappar för att spara ny kontakt och avbryta inmatningen --%>
-                                <asp:LinkButton runat="server" CommandName="Insert" Text="Spara"></asp:LinkButton>
-                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Insert" Text="Spara" CssClass="selectedItem"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false" CssClass="selectedItem"></asp:LinkButton>
                             </td>
                         </tr>
                     </InsertItemTemplate>
                     <EditItemTemplate>
                         <tr>
                             <td>
-                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# BindItem.FirstName %>'></asp:TextBox>
+                                <asp:TextBox ID="EditFNameTextBox" runat="server" Text='<%# BindItem.FirstName %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="TextBox2" runat="server" Text='<%# BindItem.LastName %>'></asp:TextBox>
+                                <asp:TextBox ID="EditLNameTextBox" runat="server" Text='<%# BindItem.LastName %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="TextBox3" runat="server" Text='<%# BindItem.EmailAdress %>'></asp:TextBox>
+                                <asp:TextBox ID="EditEmailTextBox" runat="server" Text='<%# BindItem.EmailAdress %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                             </td>
                             <td>
                                 <%-- Kommandoknappar för att redigera kontakt och ta bort kontakt --%>
-                                <asp:LinkButton runat="server" CommandName="Update" Text="Spara"></asp:LinkButton>
-                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Update" Text="Spara" CssClass="selectedItem"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false" CssClass="selectedItem"></asp:LinkButton>
                             </td>
                         </tr>
                     </EditItemTemplate>
                 </asp:ListView>
             </div>
         </div>
-    </form>
+    </form>  
 </body>
 </html>

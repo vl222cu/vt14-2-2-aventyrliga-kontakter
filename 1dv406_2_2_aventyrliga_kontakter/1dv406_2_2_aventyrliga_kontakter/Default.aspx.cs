@@ -24,7 +24,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+       
         }
 
         // Hämtar alla kontakter som finns lagrade i databasen
