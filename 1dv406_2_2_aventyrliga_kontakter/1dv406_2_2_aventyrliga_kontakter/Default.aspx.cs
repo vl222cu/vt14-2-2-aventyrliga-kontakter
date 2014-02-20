@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using _1dv406_2_2_aventyrliga_kontakter.Model;
 
 namespace _1dv406_2_2_aventyrliga_kontakter
 {
@@ -25,24 +24,62 @@ namespace _1dv406_2_2_aventyrliga_kontakter
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
-        protected void SendButton_Click(object sender, EventArgs e)
-        {
-            if (IsValid)
-            { }
-        }
-
-        // The return type can be changed to IEnumerable, however to support
-        // paging and sorting, the following parameters must be added:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
+        // Hämtar alla kontakter som finns lagrade i databasen
         public IEnumerable<Contact> ContactListView_GetData()
         {
             return Service.GetContacts();
+        }
+
+        public void ContactListView_InsertItem(Contact contact)
+        {
+            try
+            {
+                Service.SaveContact(contact);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(String.Empty, "Ett oväntat fel inträffade då kontaktuppgiften skulle läggas till.");
+            }  
+        }
+
+        // The id parameter name should match the DataKeyNames value set on the control
+        public void ContactListView_UpdateItem(int contactId)
+        {
+            try
+            {
+                var contact = Service.GetContact(contactId);
+                if (contact == null)
+                {
+                    ModelState.AddModelError(String.Empty,
+                        String.Format("Kontakten med kontaktnummer {0} hittades inte", contactId));
+                    return;
+                }
+
+                if (TryUpdateModel(contact))
+                {
+                    Service.SaveContact(contact);
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(String.Empty, "Ett oväntat fel inträffade då kontaktuppgiften skulle uppdateras.");
+            }
+        }
+
+        // The id parameter name should match the DataKeyNames value set on the control
+        public void ContactListView_DeleteItem(int contactId)
+        {
+            try
+            {
+                Service.DeleteContact(contactId);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(String.Empty, "Ett oväntat fel inträffade då kontaktuppgiften skulle tas bort.");
+            }
         }
     }
 }

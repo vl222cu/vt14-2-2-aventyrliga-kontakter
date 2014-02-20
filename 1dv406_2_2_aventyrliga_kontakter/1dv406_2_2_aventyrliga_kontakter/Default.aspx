@@ -10,55 +10,9 @@
 <body>
     <form id="Myform" runat="server">
         <div id="maincontainer">
-            <h1>Äventyrliga kontakter
+            <h1>
+                Äventyrliga kontakter
             </h1>
-            <div>
-                <asp:Button ID="SendButton" runat="server" Text="Ny kontakt" OnClick="SendButton_Click" />
-            </div>
-            <%-- Kontaktabell --%>
-            <table class="contacttable">
-                <tr>
-                    <th>
-                        <asp:Label ID="FNameLabel" runat="server" Text="Förnamn"></asp:Label>
-                    </th>
-                    <th>
-                        <asp:Label ID="LNameLabel" runat="server" Text="Efternamn"></asp:Label>
-                    </th>
-                    <th>
-                        <asp:Label ID="EmailLabel" runat="server" Text="E-post"></asp:Label>
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        <%-- Förnamninputfält --%>
-                        <asp:TextBox ID="FNameTextBox" runat="server" MaxLength="50" Width="250"></asp:TextBox>
-                        <%-- Validering av e-post --%>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
-                            ControlToValidate="FNameTextBox" ErrorMessage="Förnamn måste anges"
-                            Display="None"></asp:RequiredFieldValidator>
-                    </td>
-                    <td>
-                        <%-- Efternamninputfält --%>
-                        <asp:TextBox ID="LNameTextBox" runat="server" MaxLength="50" Width="250"></asp:TextBox>
-                        <%-- Validering av e-post --%>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
-                            ControlToValidate="LNameTextBox" ErrorMessage="Efternamn måste anges"
-                            Display="None"></asp:RequiredFieldValidator>
-                    </td>
-                    <td>
-                        <%-- Epostinputfält --%>
-                        <asp:TextBox ID="EmailTextBox" runat="server" MaxLength="50" Width="250"></asp:TextBox>
-                        <%-- Validering av e-post --%>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
-                            ControlToValidate="EmailTextBox" ErrorMessage="E-postadress måste anges"
-                            Display="None"></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
-                            ControlToValidate="EmailTextBox" ValidationExpression="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
-                            ErrorMessage="E-postadressen är inte giltig" Display="None">
-                        </asp:RegularExpressionValidator>
-                    </td>
-                </tr>
-            </table>
             <p>
                 <%-- Valideringsfelmeddelanden --%>
                 <asp:ValidationSummary ID="ValidationSummary1" runat="server"
@@ -68,22 +22,89 @@
                 <asp:ListView ID="ContactListView" runat="server"
                     ItemType="_1dv406_2_2_aventyrliga_kontakter.Model.Contact"
                     SelectMethod="ContactListView_GetData"
-                    DataKeyNames="ContactID">
-                    <ItemTemplate>
+                    InsertMethod="ContactListView_InsertItem"
+                    UpdateMethod="ContactListView_UpdateItem"
+                    DeleteMethod="ContactListView_DeleteItem"
+                    DataKeyNames="ContactID"
+                    InsertItemPosition="FirstItem">
+                    <LayoutTemplate>
                         <table>
                             <tr>
-                                <td>
-                                    <asp:Label ID="ItemFNameLabel" runat="server" Text='<%# Item.FirstName %>'></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="ItemLNameLabel" runat="server" Text='<%# Item.LastName %>'></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="ItemEmailLabel" runat="server" Text='<%# Item.EmailAdress %>'></asp:Label>
+                                <th>Förnamn
+                                </th>
+                                <th>Efternamn
+                                </th>
+                                <th>Epostadress
+                                </th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <%-- Platshållare för nya rader --%>
+                            <asp:PlaceHolder ID="itemPlaceholder" runat="server" />
+                        </table>
+                    </LayoutTemplate>
+                    <ItemTemplate>
+                        <tr>
+                            <td>
+                                <asp:Label ID="ItemFNameLabel" runat="server" Text='<%# Item.FirstName %>'></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="ItemLNameLabel" runat="server" Text='<%# Item.LastName %>'></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="ItemEmailLabel" runat="server" Text='<%# Item.EmailAdress %>'></asp:Label>
+                            </td>
+                            <td>
+                                <asp:LinkButton ID="LinkButton3" runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false"></asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton4" runat="server" CommandName="Edit" Text="Redigera" CausesValidation="false"></asp:LinkButton>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                    <EmptyDataTemplate>
+                        <%-- Detta visas om kontaktuppgifter saknas i databasen --%>
+                        <table>
+                            <tr>
+                                <td>Kontaktuppgifter saknas.
                                 </td>
                             </tr>
                         </table>
-                    </ItemTemplate>
+                    </EmptyDataTemplate>
+                    <InsertItemTemplate>
+                        <tr>
+                            <td>
+                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# BindItem.FirstName %>'></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBox2" runat="server" Text='<%# BindItem.LastName %>'></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBox3" runat="server" Text='<%# BindItem.EmailAdress %>'></asp:TextBox>
+                            </td>
+                            <td>
+                                <%-- Kommandoknappar för att spara ny kontakt och avbryta inmatningen --%>
+                                <asp:LinkButton runat="server" CommandName="Insert" Text="Spara"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false"></asp:LinkButton>
+                            </td>
+                        </tr>
+                    </InsertItemTemplate>
+                    <EditItemTemplate>
+                        <tr>
+                            <td>
+                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# BindItem.FirstName %>'></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBox2" runat="server" Text='<%# BindItem.LastName %>'></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBox3" runat="server" Text='<%# BindItem.EmailAdress %>'></asp:TextBox>
+                            </td>
+                            <td>
+                                <%-- Kommandoknappar för att redigera kontakt och ta bort kontakt --%>
+                                <asp:LinkButton runat="server" CommandName="Update" Text="Spara"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false"></asp:LinkButton>
+                            </td>
+                        </tr>
+                    </EditItemTemplate>
                 </asp:ListView>
             </div>
         </div>
