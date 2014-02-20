@@ -13,13 +13,13 @@ namespace _1dv406_2_2_aventyrliga_kontakter {
     public partial class Default {
         
         /// <summary>
-        /// form1 control.
+        /// Myform control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm Myform;
         
         /// <summary>
         /// SendButton control.
@@ -31,13 +31,13 @@ namespace _1dv406_2_2_aventyrliga_kontakter {
         protected global::System.Web.UI.WebControls.Button SendButton;
         
         /// <summary>
-        /// HeaderLabel control.
+        /// FNameLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label HeaderLabel;
+        protected global::System.Web.UI.WebControls.Label FNameLabel;
         
         /// <summary>
         /// LNameLabel control.
@@ -121,12 +121,21 @@ namespace _1dv406_2_2_aventyrliga_kontakter {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
-        /// ListViewWrapper control.
+        /// ValidationSummary1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ListViewWrapper;
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
+        
+        /// <summary>
+        /// ContactListView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView ContactListView;
     }
 }

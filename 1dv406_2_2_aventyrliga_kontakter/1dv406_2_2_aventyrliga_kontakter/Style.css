@@ -1,12 +1,15 @@
-﻿table.infotable {
-	font-family: verdana,arial,sans-serif;
+﻿body {
+    font-family: verdana,arial,sans-serif;
+}
+
+table.contacttable {
 	font-size:13px;
 	color:#FFF;
 	border-width: 1px;
 	border-color: #999999;
 	border-collapse: collapse;
 }
-table.infotable th {
+table.contacttable th {
     width: 300px;
 	background:#999999;
 	border-width: 1px;
@@ -15,6 +18,10 @@ table.infotable th {
 	border-color: #999999;
     border-collapse: collapse;
     text-align: left;
+}
+
+#ValidationSummary1 {
+    color: #DB0000;
 }
 
 
