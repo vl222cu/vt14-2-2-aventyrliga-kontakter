@@ -23,7 +23,6 @@ h1 {
 }
 
 #ListViewWrapper {
-    margin-top: 100px;
     border-collapse: collapse;
 	-moz-box-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -53,7 +52,7 @@ h1 {
 
 table
 {
-    margin-left: 15px;
+    margin-left: 6px;
     width: 100%;
     border-collapse: collapse;
 }
@@ -70,6 +69,21 @@ td, th
     vertical-align: middle;
 }
 
+tr:nth-child(even)
+{
+    background: #DFDBFC;
+}
+
+#Status {
+	height: 80px;
+	padding-top: 15px;
+}
+
+#StatusLabel {
+	color: #DFDBFC;
+	font-weight: 900;
+}
+
 #ValidationSummary1 {
     color: #DB0000;
 }
@@ -78,7 +92,7 @@ a:hover {
     color: #4cff00;
 }
 
-.selectedItem {
+.linkbtn {
     margin-right: 10px;
 	margin-left: 5px;
     padding: 5px;
@@ -98,3 +112,7 @@ a:hover {
 	background: linear-gradient(#263966 5%, #79bbff 100%);
 }
 
+#header {
+    color: #000;
+    text-align: left;
+}

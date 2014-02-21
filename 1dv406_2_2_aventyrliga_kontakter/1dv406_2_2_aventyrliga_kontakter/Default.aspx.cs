@@ -33,19 +33,21 @@ namespace _1dv406_2_2_aventyrliga_kontakter
             return Service.GetContacts();
         }
 
+        // Sparar kontakt i databasen
         public void ContactListView_InsertItem(Contact contact)
         {
             try
             {
                 Service.SaveContact(contact);
+            
             }
             catch (Exception)
             {
                 ModelState.AddModelError(String.Empty, "Ett oväntat fel inträffade då kontaktuppgiften skulle läggas till.");
-            }  
+            }
         }
 
-        // The id parameter name should match the DataKeyNames value set on the control
+        // Uppdaterar kontakt i databasen
         public void ContactListView_UpdateItem(int contactId)
         {
             try
@@ -69,7 +71,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter
             }
         }
 
-        // The id parameter name should match the DataKeyNames value set on the control
+        // Raderar kontakt i databasen
         public void ContactListView_DeleteItem(int contactId)
         {
             try
