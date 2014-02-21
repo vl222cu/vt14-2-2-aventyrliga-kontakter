@@ -88,6 +88,7 @@
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Model\DAL\ContactDAL.cs" />
     <Compile Include="Model\DAL\DALBase.cs" />
+    <Compile Include="Model\DAL\Test.cs" />
     <Compile Include="Model\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
