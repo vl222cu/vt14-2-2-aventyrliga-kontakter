@@ -28,9 +28,9 @@ namespace _1dv406_2_2_aventyrliga_kontakter
         }
 
         // Hämtar alla kontakter som finns lagrade i databasen
-        public IEnumerable<Contact> ContactListView_GetData()
+        public IEnumerable<Contact> ContactListView_GetDataPageWise(int maximumRows, int startRowIndex, out int totalRowCount)
         {
-            return Service.GetContacts();
+            return Service.GetContactPageWise(maximumRows, startRowIndex, out totalRowCount);
         }
 
         // Sparar kontakt i databasen
@@ -39,6 +39,8 @@ namespace _1dv406_2_2_aventyrliga_kontakter
             try
             {
                 Service.SaveContact(contact);
+                StatusLabel.Visible = true;
+                StatusLabel.Text = String.Format("<img src='Images/ok.png' /> Kontakten har lagts till.");
             
             }
             catch (Exception)
@@ -53,6 +55,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter
             try
             {
                 var contact = Service.GetContact(contactId);
+
                 if (contact == null)
                 {
                     ModelState.AddModelError(String.Empty,
@@ -63,6 +66,9 @@ namespace _1dv406_2_2_aventyrliga_kontakter
                 if (TryUpdateModel(contact))
                 {
                     Service.SaveContact(contact);
+                    StatusLabel.Visible = true;
+                    StatusLabel.Text = String.Format("<img src='Images/ok.png' /> Kontakten är uppdaterad.");
+
                 }
             }
             catch (Exception)
@@ -77,6 +83,8 @@ namespace _1dv406_2_2_aventyrliga_kontakter
             try
             {
                 Service.DeleteContact(contactId);
+                StatusLabel.Visible = true;
+                StatusLabel.Text = String.Format("<img src='Images/ok.png' /> Kontakten är borttagen.");
             }
             catch (Exception)
             {

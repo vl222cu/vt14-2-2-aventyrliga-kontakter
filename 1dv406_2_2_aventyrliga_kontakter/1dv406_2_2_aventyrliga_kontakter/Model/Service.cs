@@ -32,6 +32,12 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model
             return ContactDAL.GetContacts();
         }
 
+        // Hämtar kontakter en sida i taget om 20 kontakter 
+        public IEnumerable<Contact> GetContactPageWise(int maximumRows, int startRowIndex, out int totalRowCount)
+        {
+            return ContactDAL.GetContactPageWise(maximumRows, startRowIndex, out totalRowCount);
+        }
+
         // Sparar kontakt i databasen
         public void SaveContact(Contact contact)
         {

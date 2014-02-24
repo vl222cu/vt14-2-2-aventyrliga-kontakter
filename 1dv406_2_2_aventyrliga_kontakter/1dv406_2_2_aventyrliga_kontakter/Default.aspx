@@ -28,7 +28,7 @@
             <div id="ListViewWrapper">
                 <asp:ListView ID="ContactListView" runat="server"
                     ItemType="_1dv406_2_2_aventyrliga_kontakter.Model.Contact"
-                    SelectMethod="ContactListView_GetData"
+                    SelectMethod="ContactListView_GetDataPageWise"
                     InsertMethod="ContactListView_InsertItem"
                     UpdateMethod="ContactListView_UpdateItem"
                     DeleteMethod="ContactListView_DeleteItem"
@@ -49,6 +49,30 @@
                             <%-- Platshållare för nya rader --%>
                             <asp:PlaceHolder ID="itemPlaceholder" runat="server" />
                         </table>
+                        <div class="Pagerwrapper">
+                            <asp:DataPager ID="DataPagerContactList" runat="server"
+                                PagedControlID="ContactListView" PageSize="20">
+                                <Fields>
+                                    <asp:NextPreviousPagerField ButtonType="Button"
+                                        ShowFirstPageButton="true"
+                                        ShowNextPageButton="false"
+                                        ButtonCssClass="ButtonClass"
+                                        ShowPreviousPageButton="true" />
+                                    <asp:NumericPagerField
+                                        CurrentPageLabelCssClass="CurrentPageLabelClass"
+                                        NextPreviousButtonCssClass="NextPreviousButtonClass"
+                                        NumericButtonCssClass="NumericButtonClass"
+                                        ButtonCount="6"
+                                        ButtonType="Link"
+                                        RenderNonBreakingSpacesBetweenControls="true" />
+                                    <asp:NextPreviousPagerField ButtonType="Button"
+                                        ShowLastPageButton="true"
+                                        ShowNextPageButton="true"
+                                        ButtonCssClass="ButtonClass"
+                                        ShowPreviousPageButton="false" />
+                                </Fields>
+                            </asp:DataPager>
+                        </div>
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
@@ -64,7 +88,7 @@
                             <td>
                                 <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false"
                                     OnClientClick="return confirm('Vill du verkligen ta bort denna kontakt från kontaktlistan?');" CssClass="linkbtn"></asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton4" runat="server" CommandName="Edit" Text="Redigera" CausesValidation="false" CssClass="linkbtn"></asp:LinkButton>
+                                <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Redigera" CausesValidation="false" CssClass="linkbtn"></asp:LinkButton>
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -90,8 +114,8 @@
                             </td>
                             <td>
                                 <%-- Kommandoknappar för att spara ny kontakt och avbryta inmatningen --%>
-                                <asp:LinkButton runat="server" CommandName="Insert" Text="Spara" CssClass="linkbtn"></asp:LinkButton>
-                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false" CssClass="linkbtn"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Insert" Text="Lägg till" CssClass="linkbtn"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Rensa" CausesValidation="false" CssClass="linkbtn"></asp:LinkButton>
                             </td>
                         </tr>
                     </InsertItemTemplate>
@@ -108,7 +132,7 @@
                             </td>
                             <td>
                                 <%-- Kommandoknappar för att redigera kontakt och ta bort kontakt --%>
-                                <asp:LinkButton runat="server" CommandName="Update" Text="Lägg till" CssClass="linkbtn"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Update" Text="Spara" CssClass="linkbtn"></asp:LinkButton>
                                 <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false" CssClass="linkbtn"></asp:LinkButton>
                             </td>
                         </tr>

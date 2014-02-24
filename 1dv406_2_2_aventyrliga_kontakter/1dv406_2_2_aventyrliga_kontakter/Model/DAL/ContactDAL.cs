@@ -55,7 +55,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model.DAL
             }
         }
 
-        // Hämtar vald kontakt 
+        // Hämtar enskild kontakt
         public static Contact GetContactById(int contactId)
         {
             using (var conn = CreateConnection())
@@ -95,6 +95,58 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model.DAL
                     throw new ApplicationException("Ett fel uppstod vid kontakt med databasen.");
                 }
             }  
+        }
+
+        // Hämtar kontakter en sida i taget om 20 kontakter
+        public static IEnumerable<Contact> GetContactPageWise(int maximumRows, int startRowIndex, out int totalRowCount)
+        {
+            using (var conn = CreateConnection())
+            {
+                try
+                {
+                    var contacts = new List<Contact>(100);
+
+                    var cmd = new SqlCommand("Person.uspGetContactsPageWise", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@PageIndex", SqlDbType.Int, 4).Value = startRowIndex + 1;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int, 4).Value = maximumRows;
+                    cmd.Parameters.Add("@RecordCount", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
+
+                    conn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    totalRowCount = (int)cmd.Parameters["@RecordCount"].Value;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        var contactIdIndex = reader.GetOrdinal("ContactID");
+                        var firstNameIndex = reader.GetOrdinal("FirstName");
+                        var lastNameIndex = reader.GetOrdinal("LastName");
+                        var emailAddressIndex = reader.GetOrdinal("EmailAddress");
+
+                        while (reader.Read())
+                        {
+                            contacts.Add(new Contact
+                            {
+                                ContactID = reader.GetInt32(contactIdIndex),
+                                FirstName = reader.GetString(firstNameIndex),
+                                LastName = reader.GetString(lastNameIndex),
+                                EmailAdress = reader.GetString(emailAddressIndex)
+                            });
+                        }
+                    }
+
+                    contacts.TrimExcess();
+
+                    return contacts;
+                }
+                catch (Exception)
+                {
+                    throw new ApplicationException("Ett fel uppstod vid kontakt med databasen.");
+                }
+            }
         }
 
         // Skapar ny kontakt i kontaktlistan
