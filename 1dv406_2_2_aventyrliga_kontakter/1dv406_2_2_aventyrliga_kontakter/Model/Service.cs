@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using _1dv406_2_2_aventyrliga_kontakter.Model.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace _1dv406_2_2_aventyrliga_kontakter.Model
 {
@@ -41,6 +42,15 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model
         // Sparar kontakt i databasen
         public void SaveContact(Contact contact)
         {
+            // Validering
+            ICollection<ValidationResult> validationResults;
+            if (!contact.Validate(out validationResults))
+            {
+                var ex = new ValidationException("Objektet klarade inte valideringen.");
+                ex.Data.Add("ValidationResults", validationResults);
+                throw ex;
+            }
+
             if (contact.ContactID == 0)
             {
                 ContactDAL.InsertContact(contact);

@@ -39,7 +39,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model.DAL
                                 ContactID = reader.GetInt32(contactIdIndex),
                                 FirstName = reader.GetString(firstNameIndex),
                                 LastName = reader.GetString(lastNameIndex),
-                                EmailAdress = reader.GetString(emailAddressIndex)
+                                EmailAddress = reader.GetString(emailAddressIndex)
                             });
                         }
                     }
@@ -83,7 +83,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model.DAL
                                 ContactID = reader.GetInt32(contactIdIndex),
                                 FirstName = reader.GetString(firstNameIndex),
                                 LastName = reader.GetString(lastNameIndex),
-                                EmailAdress = reader.GetString(emailAddressIndex)
+                                EmailAddress = reader.GetString(emailAddressIndex)
                             };
                         }
                     }
@@ -109,14 +109,13 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model.DAL
                     var cmd = new SqlCommand("Person.uspGetContactsPageWise", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@PageIndex", SqlDbType.Int, 4).Value = startRowIndex + 1;
+                    cmd.Parameters.Add("@PageIndex", SqlDbType.Int, 4).Value = startRowIndex / maximumRows + 1;
                     cmd.Parameters.Add("@PageSize", SqlDbType.Int, 4).Value = maximumRows;
                     cmd.Parameters.Add("@RecordCount", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
 
                     conn.Open();
 
                     cmd.ExecuteNonQuery();
-
                     totalRowCount = (int)cmd.Parameters["@RecordCount"].Value;
 
                     using (var reader = cmd.ExecuteReader())
@@ -133,13 +132,12 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model.DAL
                                 ContactID = reader.GetInt32(contactIdIndex),
                                 FirstName = reader.GetString(firstNameIndex),
                                 LastName = reader.GetString(lastNameIndex),
-                                EmailAdress = reader.GetString(emailAddressIndex)
+                                EmailAddress = reader.GetString(emailAddressIndex)
                             });
                         }
                     }
 
                     contacts.TrimExcess();
-
                     return contacts;
                 }
                 catch (Exception)
@@ -161,7 +159,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model.DAL
 
                     cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = contact.FirstName;
                     cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = contact.LastName;
-                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = contact.EmailAdress;
+                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = contact.EmailAddress;
                     cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
                     
                     conn.Open();
@@ -189,7 +187,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter.Model.DAL
 
                     cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = contact.FirstName;
                     cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = contact.LastName;
-                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = contact.EmailAdress;
+                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = contact.EmailAddress;
                     cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Value = contact.ContactID;
 
                     conn.Open();

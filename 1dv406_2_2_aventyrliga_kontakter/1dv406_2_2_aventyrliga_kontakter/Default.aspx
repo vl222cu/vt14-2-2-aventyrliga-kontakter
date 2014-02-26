@@ -22,6 +22,12 @@
                     <%-- Valideringsfelmeddelanden --%>
                     <asp:ValidationSummary ID="ValidationSummary1" runat="server"
                         HeaderText="Fel inträffade! Åtgärda felen och försök igen." />
+                    <asp:ValidationSummary ID="ValidationSummary2" runat="server"
+                        HeaderText="Fel inträffade! Åtgärda felen och försök igen." 
+                         ValidationGroup="InsertGroup" />
+                    <asp:ValidationSummary ID="ValidationSummary3" runat="server"
+                        HeaderText="Fel inträffade! Åtgärda felen och försök igen." 
+                         ValidationGroup="EditGroup" />                  
                 </p>
             </div>
 
@@ -49,46 +55,43 @@
                             <%-- Platshållare för nya rader --%>
                             <asp:PlaceHolder ID="itemPlaceholder" runat="server" />
                         </table>
-                        <div class="Pagerwrapper">
-                            <asp:DataPager ID="DataPagerContactList" runat="server"
-                                PagedControlID="ContactListView" PageSize="20">
-                                <Fields>
-                                    <asp:NextPreviousPagerField ButtonType="Button"
-                                        ShowFirstPageButton="true"
-                                        ShowNextPageButton="false"
-                                        ButtonCssClass="ButtonClass"
-                                        ShowPreviousPageButton="true" />
-                                    <asp:NumericPagerField
-                                        CurrentPageLabelCssClass="CurrentPageLabelClass"
-                                        NextPreviousButtonCssClass="NextPreviousButtonClass"
-                                        NumericButtonCssClass="NumericButtonClass"
-                                        ButtonCount="6"
-                                        ButtonType="Link"
-                                        RenderNonBreakingSpacesBetweenControls="true" />
-                                    <asp:NextPreviousPagerField ButtonType="Button"
-                                        ShowLastPageButton="true"
-                                        ShowNextPageButton="true"
-                                        ButtonCssClass="ButtonClass"
-                                        ShowPreviousPageButton="false" />
-                                </Fields>
-                            </asp:DataPager>
-                        </div>
+                        <asp:DataPager ID="DataPagerContactList" runat="server"
+                            PagedControlID="ContactListView" PageSize="20">
+                            <Fields>
+                                <asp:NextPreviousPagerField ButtonType="Button"
+                                    ShowFirstPageButton="true"
+                                    ShowNextPageButton="false"
+                                    ButtonCssClass="ButtonClass"
+                                    ShowPreviousPageButton="true" />
+                                <asp:NumericPagerField
+                                    CurrentPageLabelCssClass="CurrentPageLabelClass"
+                                    NextPreviousButtonCssClass="NextPreviousButtonClass"
+                                    NumericButtonCssClass="NumericButtonClass"
+                                    ButtonType="Link"
+                                    RenderNonBreakingSpacesBetweenControls="true" />
+                                <asp:NextPreviousPagerField ButtonType="Button"
+                                    ShowLastPageButton="true"
+                                    ShowNextPageButton="true"
+                                    ButtonCssClass="ButtonClass"
+                                    ShowPreviousPageButton="false" />
+                            </Fields>
+                        </asp:DataPager>
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
                             <td>
-                                <asp:Label ID="ItemFNameLabel" runat="server" Text='<%# Item.FirstName %>'></asp:Label>
+                                <asp:Label ID="ItemFNameLabel" runat="server" Text='<%#: Item.FirstName %>'></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="ItemLNameLabel" runat="server" Text='<%# Item.LastName %>'></asp:Label>
+                                <asp:Label ID="ItemLNameLabel" runat="server" Text='<%#: Item.LastName %>'></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="ItemEmailLabel" runat="server" Text='<%# Item.EmailAdress %>'></asp:Label>
+                                <asp:Label ID="ItemEmailLabel" runat="server" Text='<%#: Item.EmailAddress %>'></asp:Label>
                             </td>
                             <td>
                                 <asp:LinkButton ID="DeleteButton" runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false"
-                                    OnClientClick="return confirm('Vill du verkligen ta bort denna kontakt från kontaktlistan?');" CssClass="linkbtn"></asp:LinkButton>
-                                <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Redigera" CausesValidation="false" CssClass="linkbtn"></asp:LinkButton>
+                                    OnClientClick='<%# String.Format("return confirm(\"Vill du verkligen ta bort {0} {1} från kontaktlistan?\")", Item.FirstName, Item.LastName) %>' CssClass="linkbtn" />
+                                <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" Text="Redigera" CausesValidation="false" CssClass="linkbtn" />
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -104,36 +107,76 @@
                     <InsertItemTemplate>
                         <tr>
                             <td>
-                                <asp:TextBox ID="FNameTextBox" runat="server" Text='<%# BindItem.FirstName %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <%-- Inputfält för förnamn --%>
+                                <asp:TextBox ID="FNameTextBox" runat="server" Text='<%#: BindItem.FirstName %>'
+                                    CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <%-- Validering av e-post --%>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                    ControlToValidate="FNameTextBox" ErrorMessage="Förnamn måste anges"
+                                     ValidationGroup="InsertGroup" Display="None"></asp:RequiredFieldValidator>
                             </td>
                             <td>
-                                <asp:TextBox ID="LNameTextBox" runat="server" Text='<%# BindItem.LastName %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <%-- Inputfält för efternamn --%>
+                                <asp:TextBox ID="LNameTextBox" runat="server" Text='<%#: BindItem.LastName %>'
+                                    CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <%-- Validering av efternamn --%>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
+                                    ControlToValidate="LNameTextBox" ErrorMessage="Efternamn måste anges."
+                                    ValidationGroup="InsertGroup" Display="None"></asp:RequiredFieldValidator>
                             </td>
                             <td>
-                                <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# BindItem.EmailAdress %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <%-- Inputfält för epostadress --%>
+                                <asp:TextBox ID="EmailTextBox" runat="server" Text='<%#: BindItem.EmailAddress %>'
+                                    CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <%-- Validering av epostadress --%>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
+                                    ControlToValidate="EmailTextBox" ErrorMessage="E-postadress måste anges"
+                                    ValidationGroup="InsertGroup" Display="None"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
+                                    ControlToValidate="EmailTextBox" ValidationExpression="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
+                                    ErrorMessage="E-postadressen är inte giltig" ValidationGroup="InsertGroup" Display="None">
+                                </asp:RegularExpressionValidator>
                             </td>
                             <td>
-                                <%-- Kommandoknappar för att spara ny kontakt och avbryta inmatningen --%>
-                                <asp:LinkButton runat="server" CommandName="Insert" Text="Lägg till" CssClass="linkbtn"></asp:LinkButton>
-                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Rensa" CausesValidation="false" CssClass="linkbtn"></asp:LinkButton>
+                                <%-- Kommandoknappar för att lägga till ny kontakt och avbryta inmatningen --%>
+                                <asp:LinkButton runat="server" CommandName="Insert" Text="Lägg till" CssClass="linkbtn" ValidationGroup="InsertGroup" />
+                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Rensa" CausesValidation="false" CssClass="linkbtn" ValidationGroup="InsertGroup" />
                             </td>
                         </tr>
                     </InsertItemTemplate>
                     <EditItemTemplate>
                         <tr>
                             <td>
-                                <asp:TextBox ID="EditFNameTextBox" runat="server" Text='<%# BindItem.FirstName %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <asp:TextBox ID="EditFNameTextBox" runat="server" Text='<%#: BindItem.FirstName %>' 
+                                    CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server"
+                                    ControlToValidate="EditFNameTextBox" ErrorMessage="Efternamn måste anges"
+                                    ValidationGroup="EditGroup" Display="None"></asp:RequiredFieldValidator>
+                            </td>
                             </td>
                             <td>
-                                <asp:TextBox ID="EditLNameTextBox" runat="server" Text='<%# BindItem.LastName %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <asp:TextBox ID="EditLNameTextBox" runat="server" Text='<%#: BindItem.LastName %>' 
+                                    CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
+                                    ControlToValidate="EditLNameTextBox" ErrorMessage="Efternamn måste anges"
+                                    ValidationGroup="EditGroup" Display="None"></asp:RequiredFieldValidator>
+                            </td>
                             </td>
                             <td>
-                                <asp:TextBox ID="EditEmailTextBox" runat="server" Text='<%# BindItem.EmailAdress %>' CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <asp:TextBox ID="EditEmailTextBox" runat="server" Text='<%#: BindItem.EmailAddress %>' 
+                                    CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server"
+                                    ControlToValidate="EditEmailTextBox" ErrorMessage="E-postadress måste anges"
+                                    ValidationGroup="EditGroup" Display="None"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
+                                    ControlToValidate="EditEmailTextBox" ValidationExpression="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
+                                    ErrorMessage="E-postadressen är inte giltig" ValidationGroup="EditGroup" Display="None">
+                                </asp:RegularExpressionValidator>
                             </td>
                             <td>
                                 <%-- Kommandoknappar för att redigera kontakt och ta bort kontakt --%>
-                                <asp:LinkButton runat="server" CommandName="Update" Text="Spara" CssClass="linkbtn"></asp:LinkButton>
-                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false" CssClass="linkbtn"></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="Update" Text="Spara" CssClass="linkbtn" ValidationGroup="EditGroup"/>
+                                <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false" CssClass="linkbtn" ValidationGroup="EditGroup" />
                             </td>
                         </tr>
                     </EditItemTemplate>

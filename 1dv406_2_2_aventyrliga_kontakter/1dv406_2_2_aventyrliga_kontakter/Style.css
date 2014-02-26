@@ -75,7 +75,7 @@ tr:nth-child(even)
 }
 
 #Status {
-	height: 80px;
+	height: 150px;
 	padding-top: 15px;
 }
 
@@ -86,6 +86,14 @@ tr:nth-child(even)
 
 #ValidationSummary1 {
     color: #DB0000;
+}
+
+#ValidationSummary2 {
+    color: #79bbff;
+}
+
+#ValidationSummary3 {
+    color: #F7F7F7;
 }
 
 a:hover {
@@ -118,21 +126,7 @@ a:hover {
 }
 
 /**********Pagerinställningar**********/
-/*
-.PagerStyle {
-	text-align: center;
-	font-family: "Verdana", "Arial", sans-serif;
-    font-size: 8px;
-	background-color:#F7F7F7;
-	width:auto;
-    -moz-box-radius: 0 0 10px 10px ;
-	-webkit-border-radius: 0 0 10px 10px;
-	border-radius: 0 0 10px 10px;
-}*/
 
-.PagerWrapper {
-    width: auto;
-}
 
 .NextPreviousButtonClass,
 .NumericButtonClass {    

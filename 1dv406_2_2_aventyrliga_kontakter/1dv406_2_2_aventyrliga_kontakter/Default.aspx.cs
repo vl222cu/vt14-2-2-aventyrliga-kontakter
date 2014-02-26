@@ -1,6 +1,7 @@
 ﻿using _1dv406_2_2_aventyrliga_kontakter.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -24,7 +25,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter
 
         protected void Page_Load(object sender, EventArgs e)
         {
-       
+            
         }
 
         // Hämtar alla kontakter som finns lagrade i databasen
@@ -36,16 +37,17 @@ namespace _1dv406_2_2_aventyrliga_kontakter
         // Sparar kontakt i databasen
         public void ContactListView_InsertItem(Contact contact)
         {
-            try
+
+            if (ModelState.IsValid)
             {
-                Service.SaveContact(contact);
-                StatusLabel.Visible = true;
-                StatusLabel.Text = String.Format("<img src='Images/ok.png' /> Kontakten har lagts till.");
-            
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError(String.Empty, "Ett oväntat fel inträffade då kontaktuppgiften skulle läggas till.");
+                try
+                {
+                    Service.SaveContact(contact);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError(String.Empty, "Ett oväntat fel inträffade då kontaktuppgiften skulle läggas till.");
+                } 
             }
         }
 
@@ -66,9 +68,6 @@ namespace _1dv406_2_2_aventyrliga_kontakter
                 if (TryUpdateModel(contact))
                 {
                     Service.SaveContact(contact);
-                    StatusLabel.Visible = true;
-                    StatusLabel.Text = String.Format("<img src='Images/ok.png' /> Kontakten är uppdaterad.");
-
                 }
             }
             catch (Exception)
@@ -83,8 +82,6 @@ namespace _1dv406_2_2_aventyrliga_kontakter
             try
             {
                 Service.DeleteContact(contactId);
-                StatusLabel.Visible = true;
-                StatusLabel.Text = String.Format("<img src='Images/ok.png' /> Kontakten är borttagen.");
             }
             catch (Exception)
             {
