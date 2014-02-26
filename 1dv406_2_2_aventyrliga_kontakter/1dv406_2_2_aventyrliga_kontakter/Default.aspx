@@ -16,6 +16,8 @@
 
             <div id="Status">
                 <p>
+                    <%-- Ikon och plats för statusmeddelandet --%>
+                    <asp:Image ID="StatusImage" runat="server" ImageUrl="~/Images/OK.png" Visible="false"/>
                     <asp:Label ID="StatusLabel" runat="server" Text="" Visible="false"></asp:Label>
                 </p>
                 <p>
@@ -30,7 +32,7 @@
                          ValidationGroup="EditGroup" />                  
                 </p>
             </div>
-
+            <%-- Visar alla kontakter i en lista --%>
             <div id="ListViewWrapper">
                 <asp:ListView ID="ContactListView" runat="server"
                     ItemType="_1dv406_2_2_aventyrliga_kontakter.Model.Contact"
@@ -49,7 +51,8 @@
                                 </th>
                                 <th>Epostadress
                                 </th>
-                                <th></th>
+                                <th>Alternativ
+                                </th>
                                 <th></th>
                             </tr>
                             <%-- Platshållare för nya rader --%>
@@ -191,9 +194,11 @@
     <script>
         $(document).ready(function () {
             var $statusText = $("#StatusLabel");
-            if ($statusText.length) {
+            var $statusImg = $("#StatusImage");
+            if ($statusText.length || $statusImg.length) {
                 setTimeout(function () {
                     $statusText.fadeOut();
+                    $statusImg.fadeOut();
                 }, 2500);
             }
         });

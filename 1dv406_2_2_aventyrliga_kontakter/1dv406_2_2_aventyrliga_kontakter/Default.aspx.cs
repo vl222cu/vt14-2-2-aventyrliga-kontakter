@@ -27,6 +27,7 @@ namespace _1dv406_2_2_aventyrliga_kontakter
         {
             if (Session["Success"] as bool? == true)
             {
+                StatusImage.Visible = true;
                 StatusLabel.Visible = true;
                 StatusLabel.Text = Request.QueryString["msg"];
                 Session.Remove("Success");

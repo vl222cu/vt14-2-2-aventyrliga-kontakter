@@ -22,6 +22,15 @@ namespace _1dv406_2_2_aventyrliga_kontakter {
         protected global::System.Web.UI.HtmlControls.HtmlForm Myform;
         
         /// <summary>
+        /// StatusImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image StatusImage;
+        
+        /// <summary>
         /// StatusLabel control.
         /// </summary>
         /// <remarks>
