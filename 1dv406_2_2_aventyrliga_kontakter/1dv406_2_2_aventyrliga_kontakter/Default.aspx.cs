@@ -25,7 +25,12 @@ namespace _1dv406_2_2_aventyrliga_kontakter
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (Session["Success"] as bool? == true)
+            {
+                StatusLabel.Visible = true;
+                StatusLabel.Text = Request.QueryString["msg"];
+                Session.Remove("Success");
+            }
         }
 
         // Hämtar alla kontakter som finns lagrade i databasen
@@ -43,6 +48,9 @@ namespace _1dv406_2_2_aventyrliga_kontakter
                 try
                 {
                     Service.SaveContact(contact);
+                    Session["Success"] = true;
+                    var msg = "Kontakten har lagts till.";
+                    Response.Redirect("~/Default.aspx?msg=" + msg);
                 }
                 catch (Exception)
                 {
@@ -68,6 +76,9 @@ namespace _1dv406_2_2_aventyrliga_kontakter
                 if (TryUpdateModel(contact))
                 {
                     Service.SaveContact(contact);
+                    Session["Success"] = true;
+                    var msg = "Kontakten har uppdaterats.";
+                    Response.Redirect("~/Default.aspx?msg=" + msg);
                 }
             }
             catch (Exception)
@@ -82,6 +93,9 @@ namespace _1dv406_2_2_aventyrliga_kontakter
             try
             {
                 Service.DeleteContact(contactId);
+                Session["Success"] = true;
+                var msg = "Kontakten har raderats.";
+                Response.Redirect("~/Default.aspx?msg=" + msg);
             }
             catch (Exception)
             {

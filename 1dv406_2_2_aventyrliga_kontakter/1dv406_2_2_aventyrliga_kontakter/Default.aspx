@@ -147,6 +147,7 @@
                     <EditItemTemplate>
                         <tr>
                             <td>
+                                <%-- Inputfält för förnamn --%>
                                 <asp:TextBox ID="EditFNameTextBox" runat="server" Text='<%#: BindItem.FirstName %>' 
                                     CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server"
@@ -155,6 +156,7 @@
                             </td>
                             </td>
                             <td>
+                                <%-- Inputfält för efternamn --%>
                                 <asp:TextBox ID="EditLNameTextBox" runat="server" Text='<%#: BindItem.LastName %>' 
                                     CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
@@ -163,6 +165,7 @@
                             </td>
                             </td>
                             <td>
+                                <%-- Validering av epostadress --%>
                                 <asp:TextBox ID="EditEmailTextBox" runat="server" Text='<%#: BindItem.EmailAddress %>' 
                                     CssClass="textbox" Width="180" MaxLength="50"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server"
