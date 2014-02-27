@@ -26,10 +26,10 @@
                         HeaderText="Fel inträffade! Åtgärda felen och försök igen." />
                     <asp:ValidationSummary ID="ValidationSummary2" runat="server"
                         HeaderText="Fel inträffade! Åtgärda felen och försök igen." 
-                         ValidationGroup="InsertGroup" />
+                         ValidationGroup="InsertGroup" ShowModelStateErrors="false"/>
                     <asp:ValidationSummary ID="ValidationSummary3" runat="server"
                         HeaderText="Fel inträffade! Åtgärda felen och försök igen." 
-                         ValidationGroup="EditGroup" />                  
+                         ValidationGroup="EditGroup" ShowModelStateErrors="false"/>                  
                 </p>
             </div>
             <%-- Visar alla kontakter i en lista --%>
